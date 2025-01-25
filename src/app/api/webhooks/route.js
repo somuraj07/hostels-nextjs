@@ -1,7 +1,7 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { createOrUpdateUser, deleteUser } from '@/lib/actions/user'
-import { use } from 'react'
+// import { use } from 'react'
 import { clerkClient } from '@clerk/nextjs/dist/types/server'
 
 export async function POST(req) {
@@ -62,10 +62,10 @@ export async function POST(req) {
     );
     if( user && eventType === 'user.created'){
       try {
-        await clerkClient.users.updateUserMetadata(id,{
-          publicMetadata :{
-            userMongoId : user._id,
-          }
+        await clerkClient.users.updateUserMetadata(id, {
+          publicMetadata: {
+            userMongoId: user._id,
+          },
         });
       } catch (error) {
         console.log('error : couldnt update in metadata ',error);
