@@ -1,7 +1,8 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { createOrUpdateUser, deleteUser } from '@/lib/actions/user'
-import { clerkClient } from '@clerk/nextjs/server'
+import { use } from 'react'
+import { clerkClient } from '@clerk/nextjs/dist/types/server'
 
 export async function POST(req) {
   const SIGNING_SECRET = process.env.SIGNING_SECRET
@@ -61,7 +62,7 @@ export async function POST(req) {
     );
     if( user && eventType === 'user.created'){
       try {
-        await clerkClient.user.updateUserMetadata(id,{
+        await clerkClient.users.updateUserMetadata(id,{
           publicMetadata :{
             userMogoId : user._id,
           }
